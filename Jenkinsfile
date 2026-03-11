@@ -22,7 +22,10 @@ pipeline {
 
         stage('Deploy to Nginx') {
             steps {
-                bat 'xcopy /E /Y /I build\\* C:\\nginx\\html\\'
+                bat 'if exist C:\\nginx-1.26.3\\nginx-1.26.3\\html\\index.html del /F /Q C:\\nginx-1.26.3\\nginx-1.26.3\\html\\index.html'
+                bat 'if exist C:\\nginx-1.26.3\\nginx-1.26.3\\html\\50x.html del /F /Q C:\\nginx-1.26.3\\nginx-1.26.3\\html\\50x.html'
+                bat 'if exist C:\\nginx-1.26.3\\nginx-1.26.3\\html\\assets rmdir /S /Q C:\\nginx-1.26.3\\nginx-1.26.3\\html\\assets'
+                bat 'xcopy /E /Y /I build\\* C:\\nginx-1.26.3\\nginx-1.26.3\\html\\'
             }
         }
     }
